@@ -25,11 +25,11 @@ class Category(models.Model):
 
 
 
+
 class Product(models.Model):
     status = (
         ('True', 'True'),
-        ('False', 'False')
-    )
+        ('False', 'False'),)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     keywords = models.CharField(max_length=100)
@@ -38,18 +38,22 @@ class Product(models.Model):
     old_price = models.DecimalField(decimal_places=2, max_digits=15)
     amount = models.IntegerField(default=0)
     min_amount = models.IntegerField(default=3)
-    details = models.TextField()
+    detail = models.TextField()
     status = models.CharField(max_length=20, choices=status)
     slug = models.SlugField(null=True, unique=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
 
-    # def image_tag(self):
-    #     return mark_safe('<img src="{}" heights = "70" width="60" />'.format(self.image.url))
-    # image_tag.short_description = 'Image'
+    def ImageUrl(self):
+        if self.image:
+            return self.image.url
+        else:
+            return ""
+
+
 
 class Images(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
