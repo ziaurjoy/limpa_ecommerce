@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
 # Create your views here.
-from product.models import Product, Images
+from product.models import Product, Images, Category
 
 
 def home(request):
+    categorys = Category.objects.all()
     product_obj = Product.objects.all().order_by('-id')[:2]
     new_product = Product.objects.all().order_by('-id')
     images = Images.objects.all().order_by('-id')[:2]
     products = Product.objects.all()
     context = {
+        'categorys': categorys,
         'products': product_obj,
         'product': products,
         'new_products': new_product,
