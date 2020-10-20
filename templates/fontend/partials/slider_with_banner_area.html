@@ -15,7 +15,7 @@
                         <ul>
                             {% recursetree categorys %}
                             <li class="right-menu">
-                                <a href="shop-left-sidebar.html">{{ node.title }}</a>
+                                <a href="{% url 'category-name' category_name=node.title %}">{{ node.title }}</a>
                                 {% if not node.is_leaf_node %}
                                 <ul class="cat-mega-menu">
                                     <li class="right-menu cat-mega-title">
