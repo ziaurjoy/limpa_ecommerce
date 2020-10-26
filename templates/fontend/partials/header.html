@@ -68,7 +68,7 @@
                 <!-- Begin Header Logo Area -->
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
-                        <a href="index.html">
+                        <a href="{% url 'home' %}">
                             <img src="{% static 'images/menu/logo/1.jpg' %}" alt="">
                         </a>
                     </div>
@@ -77,8 +77,9 @@
                 <!-- Begin Header Middle Right Area -->
                 <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                     <!-- Begin Header Middle Searchbox Area -->
-                    <form action="#" class="hm-searchbox">
-                        <select class="nice-select select-search-category">
+                    <form action="{% url 'search_view' %}" class="hm-searchbox" method="post">
+                        {% csrf_token %}
+                        <select name="cat_id" class="nice-select select-search-category">
                             <option value="0">All</option>
                             {% load mptt_tags %}
                                 {% recursetree categorys %}
@@ -88,7 +89,7 @@
                                     {% endif %}
                                 {% endrecursetree %}
                         </select>
-                        <input type="text" placeholder="Enter your search key ...">
+                        <input type="text" name="query" placeholder="Enter your search key ...">
                         <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                     <!-- Header Middle Searchbox Area End Here -->
