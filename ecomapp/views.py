@@ -2,10 +2,16 @@ from django.shortcuts import render, redirect,HttpResponseRedirect
 
 # Create your views here.
 from ecomapp.forms import MessageContactForm, SearchForms
+from orderapp.models import ShopCart
 from product.models import Product, Images, Category
 
 
 def home(request):
+    current_user = request.user
+    card_product = ShopCart.objects.filter(user_id=current_user.id)
+    total_amount = 0
+    for product in card_product:
+        total_amount += product.product.new_price * product.quantity
     categorys = Category.objects.all()
     product_obj = Product.objects.all().order_by('-id')[:2]
     new_product = Product.objects.all().order_by('-id')
@@ -17,6 +23,9 @@ def home(request):
         'product': products,
         'new_products': new_product,
         'images': images,
+        'card_product': card_product,
+        'total_amount': total_amount,
+
     }
     return render(request, 'fontend/pages/home.html', context)
 

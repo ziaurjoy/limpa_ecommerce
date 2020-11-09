@@ -3,6 +3,7 @@ from django.shortcuts import render,HttpResponseRedirect
 # Create your views here.
 from orderapp.forms import ShopingCartForm
 from orderapp.models import ShopCart
+from product.models import Product,Category,Images
 
 
 def add_to_shoping_cart(request, id):
@@ -43,3 +44,25 @@ def add_to_shoping_cart(request, id):
             data.quantity = 1
             data.save()
         return HttpResponseRedirect(url)
+
+def card_details(request):
+    categorys = Category.objects.all()
+    current_user = request.user
+    cart_product = ShopCart.objects.filter(user_id=current_user.id)
+    total_amount = 0
+    for products in cart_product:
+        total_amount += products.product.new_price * products.quantity
+    context = {
+        'categorys': categorys,
+        'products': cart_product,
+        'total_amount': total_amount,
+    }
+    return render(request, 'fontend/pages/shopping_cart.html', context)
+
+
+def cart_delete(request, id):
+    current_user = request.user
+    url = request.META.get('HTTP_REFERER')
+    card_obj = ShopCart.objects.filter(id=id, user_id=current_user.id)
+    card_obj.delete()
+    return HttpResponseRedirect(url)
