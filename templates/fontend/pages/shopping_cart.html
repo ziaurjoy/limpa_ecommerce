@@ -17,6 +17,15 @@
                             <li class="active">Shopping Cart</li>
                         </ul>
                     </div>
+                    <div>
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <!-- Li's Breadcrumb Area End Here -->

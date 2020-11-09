@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ecomapp.urls')),
     path('order/', include('orderapp.urls')),
+    path('user/', include('user_app.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,

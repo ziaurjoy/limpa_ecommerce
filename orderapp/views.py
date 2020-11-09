@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
-
 # Create your views here.
+from django.contrib import messages
 from orderapp.forms import ShopingCartForm
 from orderapp.models import ShopCart
 from product.models import Product,Category,Images
@@ -29,6 +29,7 @@ def add_to_shoping_cart(request, id):
                 data.user_id = current_user.id
                 data.quantity = forms.cleaned_data['quantity']
                 data.save()
+        messages.success(request, 'Product Add Success')
         return HttpResponseRedirect(url)
 
     else:
@@ -43,6 +44,7 @@ def add_to_shoping_cart(request, id):
             data.product_id = id
             data.quantity = 1
             data.save()
+        messages.success(request, 'Product add success')
         return HttpResponseRedirect(url)
 
 def card_details(request):
@@ -65,4 +67,5 @@ def cart_delete(request, id):
     url = request.META.get('HTTP_REFERER')
     card_obj = ShopCart.objects.filter(id=id, user_id=current_user.id)
     card_obj.delete()
+    messages.warning(request, 'Product delete success')
     return HttpResponseRedirect(url)

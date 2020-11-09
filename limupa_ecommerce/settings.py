@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'product',
     'ecomapp',
     'orderapp',
+    'user_app',
 ]
 
 MIDDLEWARE = [
