@@ -22,9 +22,12 @@
                                 <div class="ht-setting-trigger"><span>Setting</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        <li><a href="login-register.html">My Account</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="login-register.html">Sign In</a></li>
+                                        {% if request.user.is_authenticated %}
+                                        <li><a href="login-register.html">{{ request.user.username }}</a></li>
+                                        <li><a href="{% url 'user-logout' %}">logout</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'user-login' %}">login</a></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </li>
