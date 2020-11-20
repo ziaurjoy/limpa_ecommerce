@@ -5,7 +5,8 @@ from django.utils.safestring import mark_safe
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.IntegerField(blank=True)
+    full_name = models.CharField(max_length=200)
+    phone = models.IntegerField(null=True, blank=True)
     address = models.CharField(blank=True, max_length=200)
     city = models.CharField(blank=True, max_length=200)
     country = models.CharField(blank=True, max_length=100)
@@ -20,3 +21,9 @@ class UserProfile(models.Model):
     def image_tag(self):
         return mark_safe('<img src ="{}" heights="50" width="50" />'.format(self.image.url))
     image_tag.short_description = 'Images'
+
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        else:
+            return ''

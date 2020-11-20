@@ -4,7 +4,7 @@ from django.contrib import admin
 from user_app.models import UserProfile
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'city', 'image_tag')
+    list_display = ('user_name', 'full_name', 'city', 'image_tag')
 
 
-admin.site.register(UserProfile,UserProfileAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

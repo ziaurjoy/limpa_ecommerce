@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     # General use templates & template tags (should appear first)
     'adminlte3',
     # Optional: Django admin theme (must be before django.contrib.admin)
+    'crispy_forms',
 
     'product',
     'ecomapp',
     'orderapp',
     'user_app',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
